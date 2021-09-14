@@ -1,18 +1,18 @@
 version: '3.4'
 
 services:
-  http-db:
+  rest-db:
     image: postgres:9.6
     volumes:
       - /var/lib/postgresql/data
     ports:
       - "15432:5432"
     environment:
-      POSTGRES_DB:       http
-      POSTGRES_USER:     http
-      POSTGRES_PASSWORD: http
+      POSTGRES_DB:       rest
+      POSTGRES_USER:     rest
+      POSTGRES_PASSWORD: rest
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "http"]
+      test: ["CMD", "pg_isready", "-U", "rest"]
       interval: 10s
       timeout: 5s
       retries: 5
