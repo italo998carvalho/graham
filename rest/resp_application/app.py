@@ -4,7 +4,7 @@ from views.UsersView import user
 
 def create_app(db):
   app = Flask(__name__)
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rest:rest@localhost:15432/rest'
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://comm-tests:comm-tests@localhost:15432/comm-tests'
   app.secret_key = '123456789'
 
   db.init_app(app)

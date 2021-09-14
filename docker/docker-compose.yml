@@ -1,18 +1,18 @@
 version: '3.4'
 
 services:
-  rest-db:
+  comm-tests-db:
     image: postgres:9.6
     volumes:
       - /var/lib/postgresql/data
     ports:
       - "15432:5432"
     environment:
-      POSTGRES_DB:       rest
-      POSTGRES_USER:     rest
-      POSTGRES_PASSWORD: rest
+      POSTGRES_DB:       comm-tests
+      POSTGRES_USER:     comm-tests
+      POSTGRES_PASSWORD: comm-tests
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "rest"]
+      test: ["CMD", "pg_isready", "-U", "comm-tests"]
       interval: 10s
       timeout: 5s
       retries: 5
