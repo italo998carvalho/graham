@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+message SaveUserRequest {
+  string name = 1;
+  string email = 2;
+}
+
+message UserResponse {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message GetUsersRequest {}
+
+message GetUsersResponse {
+  repeated UserResponse users = 1;
+}
+
+service Users {
+  rpc Save (SaveUserRequest) returns (UserResponse);
+  rpc Get (GetUsersRequest) returns (GetUsersResponse);
+}
