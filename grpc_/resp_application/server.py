@@ -1,5 +1,7 @@
-from concurrent import futures
 import random, grpc
+from concurrent import futures
+from database import Base
+from models.User import User
 from users.users_pb2 import (
   SaveUserRequest,
   UserResponse,
@@ -7,15 +9,28 @@ from users.users_pb2 import (
   GetUsersResponse
 )
 import users.users_pb2_grpc as users_pb2_grpc
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+engine = create_engine('postgresql://comm-tests:comm-tests@localhost:15432/comm-tests', echo=True)
 
 class UsersService(users_pb2_grpc.UsersServicer):
   def Save(self, request, context):
-    # logic to save payload on database
+    Session = sessionmaker(bind = engine)
+    session = Session()
+
+    user = User(
+      name = request.name,
+      email = request.email
+    )
+
+    session.add(user)
+    session.commit()
 
     return UserResponse(
-      id = 123,
-      name = "Italo",
-      email = "italo@gmail.com"
+      id = user.id,
+      name = user.name,
+      email = user.email
     )
 
   def Get(self, request, context):
@@ -38,6 +53,7 @@ class UsersService(users_pb2_grpc.UsersServicer):
 
 def serve():
   print('Starting server...')
+  Base.metadata.create_all(engine)
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
   users_pb2_grpc.add_UsersServicer_to_server(
     UsersService(), server
