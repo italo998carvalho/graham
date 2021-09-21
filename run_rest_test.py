@@ -1,23 +1,13 @@
 import datetime
-from test_config import POST_ITERACTIONS, GET_ITERACTIONS
 from rest.req_methods.methods import post, get
+from SpeedTest import SpeedTest
 
-users = []
-for v in range(POST_ITERACTIONS):
-  payload = {}
-  payload['email'] = f"name-{v}@gmail.com"
-  payload['name'] = f"name-{v}"
-
-  users.append(payload)
+spdTest = SpeedTest(post, get)
 
 starting = datetime.datetime.now()
 
-for user in users:
-  post(user)
-
+spdTest.runPost()
 print('Finished posting after: ' + str(datetime.datetime.now() - starting))
 
-for v in range(GET_ITERACTIONS):
-  get()
-
+spdTest.runGet()
 print('Finished getting after: ' + str(datetime.datetime.now() - starting))
