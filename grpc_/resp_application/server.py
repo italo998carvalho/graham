@@ -15,17 +15,18 @@ from sqlalchemy.orm import sessionmaker
 engine = create_engine('postgresql://comm-tests:comm-tests@localhost:15432/comm-tests', echo=True)
 
 class UsersService(users_pb2_grpc.UsersServicer):
-  def Save(self, request, context):
+  def __init__(self):
     Session = sessionmaker(bind = engine)
-    session = Session()
+    self.session = Session()
 
+  def Save(self, request, context):
     user = User(
       name = request.name,
       email = request.email
     )
 
-    session.add(user)
-    session.commit()
+    self.session.add(user)
+    self.session.commit()
 
     return UserResponse(
       id = user.id,
@@ -34,22 +35,15 @@ class UsersService(users_pb2_grpc.UsersServicer):
     )
 
   def Get(self, request, context):
-    # logic to get users from DB
-
-    return GetUsersResponse(
-      users = [
-        UserResponse(
-          id = 123,
-          name = "Italo",
-          email = "italo@gmail.com"
-        ),
-        UserResponse(
-          id = 321,
-          name = "Ester",
-          email = "ester@gmail.com"
-        )
-      ]
-    )
+    users_response = []
+    for user in self.session.query(User).order_by(User.id):
+      users_response.append(UserResponse(
+        id = user.id,
+        name = user.name,
+        email = user.email
+      ))
+    
+    return GetUsersResponse(users = users_response)
 
 def serve():
   print('Starting server...')
