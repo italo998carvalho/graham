@@ -1,5 +1,6 @@
 from flask import Flask
 from database import db
+from config import PORT
 from views.UsersView import user
 
 def create_app(db):
@@ -20,4 +21,4 @@ def setup_database(app):
 if __name__ == '__main__':
   app = create_app(db)
   setup_database(app)
-  app.run(host='0.0.0.0', port=5000, debug=True)
+  app.run(host='0.0.0.0', port=PORT, debug=True)
