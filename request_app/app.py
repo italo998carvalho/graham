@@ -8,15 +8,21 @@ grpcService = GrpcService('localhost:50051')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-  if request.method == 'GET':
-    return render_template('index.html', users=_getRestUsersList(restService))
-  else:
+  if request.method == 'POST':
     if request.form['comm'] == 'REST':
       restService.save(request.form)
-      return render_template('index.html', users=_getRestUsersList(restService))
+      return renderIndex('REST')
     else:
       grpcService.save(request.form)
-      return render_template('index.html', users=_getGrpcUsersList(grpcService))
+      return renderIndex('GRPC')
+
+  return renderIndex()
+
+def renderIndex(comm = 'REST'):
+  if comm == 'REST':
+    return render_template('index.html', users=_getRestUsersList(restService))
+  else:
+    return render_template('index.html', users=_getGrpcUsersList(grpcService))
 
 def _getRestUsersList(restService):
   return restService.get()['body']['message']
