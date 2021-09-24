@@ -33,4 +33,4 @@ class UsersService:
         
       return json.dumps({'code': 200, 'body': {'message': resp_payload}}), 200
     else:
-      return json.dumps({'code': 404, 'body': {'message': 'User not found!'}}), 404
+      return json.dumps({'code': 200, 'body': {'message': []}}), 200

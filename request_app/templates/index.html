@@ -1,0 +1,26 @@
+<!-- homepage.html -->
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Communication tests</title>
+</head>
+<body>
+	<h1>Communication tests</h1>
+	<form action = "http://localhost:5000/" method = "POST">
+		<p>Name: <input type="text" name="name" /></p>
+		<p>Email: <input type="text" name="email" /></p>
+		<label for="html">Communication: </label><br>
+		<input type="radio" id="rest" name="comm" value="REST" checked>
+		<label for="html">REST</label><br>
+		<input type="radio" id="grpc" name="comm" value="GRPC">
+		<label for="html">GRPC</label><br>
+		<p><input type="submit" value="Save" /></p>
+	</form>
+
+	<h3>Lista</h3>
+	<ul>
+		{% for user in users %}
+			<li>{{ user['name'] }}</li>
+		{% endfor %}
+	</ul>
+</body>
