@@ -1,4 +1,4 @@
-from src.services.RequesterService import RequesterService
+from src.services.requester_service import RequesterService
 
 def test_something(restService, grpcService):
   requesterService = RequesterService(restService, grpcService)
