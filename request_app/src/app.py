@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from setup import restService, grpcService
-from services.RequesterService import RequesterService
+from services.requester_service import RequesterService
 
 app = Flask(__name__)
 requesterService = RequesterService(restService, grpcService)
