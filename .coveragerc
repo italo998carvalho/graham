@@ -1,0 +1,2 @@
+[run]
+omit = tests/*,*test.py,venv/*,*__init__.py,*conftest.py,*pb2*
