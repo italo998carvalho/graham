@@ -10,11 +10,9 @@ class RequesterService:
     if data['comm'] == 'REST':
       self.restService.save(data)
       self.lastComm = 'REST'
-      return True
     elif data['comm'] == 'GRPC':
       self.grpcService.save(data)
       self.lastComm = 'GRPC'
-      return True
     else:
       raise Exception(f"Communication pattern not supported: {data['comm']}")
 
