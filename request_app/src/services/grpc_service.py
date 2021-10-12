@@ -1,4 +1,4 @@
-import grpc
+import grpc, logging
 from proto_users.users_pb2 import (
   SaveUserRequest,
   GetUsersRequest
@@ -20,4 +20,12 @@ class GrpcService:
 
   def get(self):
     request = GetUsersRequest()
-    return self.client.Get(request)
+    try:
+      return self.client.Get(request)
+    except grpc._channel._InactiveRpcError as e:
+      logging.error(f'Error trying to get users list: {str(e)}')
+      class Object:
+        def __init__(self):
+          self.users = []
+
+      return Object()
