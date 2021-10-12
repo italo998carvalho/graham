@@ -1,4 +1,4 @@
-import requests, json
+import requests, json, logging
 
 class RestService:
   def __init__(self, host):
@@ -11,4 +11,8 @@ class RestService:
     return requests.post(f"{self.host}/user", json = json.dumps(payload))
 
   def get(self):
-    return requests.get(f"{self.host}/user").json()
+    try:
+      return requests.get(f"{self.host}/user").json()
+    except requests.exceptions.ConnectionError as e:
+      logging.error(f'Error trying to get users list: {str(e)}')
+      return {'body': {'message': []}}
