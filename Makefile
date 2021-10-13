@@ -1,7 +1,17 @@
+DOCKER_COMPOSE_CMD=docker-compose -f docker/docker-compose.yml
 DIR=$(shell pwd)
 
-test\:requester:
-	pytest request_app/tests/
+up:
+	@$(DOCKER_COMPOSE_CMD) up -d
 
-test\:requester-cov:
-	pytest --cov-config=.coveragerc --cov=request_app/ request_app/tests/
+down:
+	@$(DOCKER_COMPOSE_CMD) down
+
+run\:client:
+	python3 client/src/app.py
+
+test\:client:
+	pytest client/tests/
+
+test\:client-cov:
+	pytest --cov-config=.coveragerc --cov=client/ client/tests/
