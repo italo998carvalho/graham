@@ -10,6 +10,12 @@ down:
 run\:client:
 	python3 client/src/app.py
 
+run\:server\:rest:
+	python3 servers/rest/app.py
+
+run\:server\:grpc:
+	python3 servers/grpc_/server.py
+
 test\:client:
 	pytest client/tests/
 
