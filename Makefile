@@ -7,6 +7,9 @@ up:
 down:
 	@$(DOCKER_COMPOSE_CMD) down
 
+up\:grpc:
+	python3 -m grpc_tools.protoc -I protobufs --python_out=client/src/proto_users/ --grpc_python_out=client/src/proto_users/ protobufs/users.proto && python3 -m grpc_tools.protoc -I protobufs --python_out=servers/grpc_/users/ --grpc_python_out=servers/grpc_/users/ protobufs/users.proto
+
 run\:client:
 	python3 client/src/app.py
 
