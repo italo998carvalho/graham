@@ -131,3 +131,5 @@ dmypy.json
 # gRPC files
 servers/grpc_/users/*
 client/src/proto_users/*
+
+!.gitkeep
