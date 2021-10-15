@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # gRPC files
-*pb2*
+servers/grpc_/users/*
+client/src/proto_users/*
