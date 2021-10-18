@@ -1,31 +1,34 @@
-import pytest, requests
+import pytest
 from unittest.mock import MagicMock
 
+
 class Object:
-  pass
+    pass
+
 
 @pytest.fixture
 def restService():
-  service = Object()
-  service.save = MagicMock()
-  service.get = MagicMock(return_value={'body': {'message': [
-    {'name': 'john'},
-    {'name': 'mary'}
-  ]}})
+    service = Object()
+    service.save = MagicMock()
+    service.get = MagicMock(return_value={'body': {'message': [
+        {'name': 'john'},
+        {'name': 'mary'}
+    ]}})
 
-  return service
+    return service
+
 
 @pytest.fixture
 def grpcService():
-  class Response():
-    def __init__(self):
-      self.users = [
-        {'name': 'john'},
-        {'name': 'mary'}
-      ]
+    class Response():
+        def __init__(self):
+            self.users = [
+                {'name': 'john'},
+                {'name': 'mary'}
+            ]
 
-  service = Object()
-  service.save = MagicMock()
-  service.get = MagicMock(return_value=Response())
+    service = Object()
+    service.save = MagicMock()
+    service.get = MagicMock(return_value=Response())
 
-  return service
+    return service
