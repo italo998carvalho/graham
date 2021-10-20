@@ -5,7 +5,6 @@ from services.requester_service import RequesterService
 app = Flask(__name__)
 requesterService = RequesterService(restService, grpcService)
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -17,3 +16,4 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
